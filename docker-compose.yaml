@@ -8,7 +8,7 @@ services:
     environment:
       - LOG_LEVEL=info
       - LISTEN_PORT=3000
-      - SLACK_WEBBOOK=<webhook_url>
+      - SLACK_WEBHOOK=<webhook_url>
 
     ports:
       - 3000:3000
