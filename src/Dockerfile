@@ -1,11 +1,11 @@
-FROM mhart/alpine-node:17
+FROM mhart/alpine-node:latest
 WORKDIR /app
 COPY package.json package-lock.json ./
 
 RUN npm ci --prod
 
 # Switch to slim context
-FROM mhart/alpine-node:slim-17
+FROM mhart/alpine-node:slim
 
 RUN apk add --no-cache tini
 ENTRYPOINT ["/sbin/tini", "--"]
