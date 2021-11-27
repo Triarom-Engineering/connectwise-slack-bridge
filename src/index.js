@@ -1,7 +1,7 @@
 // Triarom Computers - ScreenConnect -> Slack Bridge
 
 const LISTEN_PORT = process.env.LISTEN_PORT || 3000
-const SLACK_WEBHOOK = process.env.SLACK_WEBHOOK
+const SLACK_WEBHOOK = process.env.SLACK_WEBHOOK || "<webhook url>"
 
 // Logging
 const log = require('pino')();
