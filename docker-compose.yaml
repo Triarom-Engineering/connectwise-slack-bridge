@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  connectwise_slack_bridge:
+    build: ./src/
+    restart: unless-stopped
+
+    environment:
+      - LOG_LEVEL=info
+      - LISTEN_PORT=3000
+      - SLACK_WEBBOOK=<webhook_url>
+
+    ports:
+      - 3000:3000
