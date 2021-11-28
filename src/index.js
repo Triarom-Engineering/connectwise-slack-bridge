@@ -44,20 +44,13 @@ app.post("/alert", async (req, res) => {
 
 	log.debug(body);
 
-	let company;
-	if (body.Session.CustomProperty1 == '') {
-		company = "No company specified, possibly support session.";
-	} else {
-		company = body.Session.CustomProperty1;
-	}
-
-	const message = "**New ConnectWise Control Message** - There are no engineers connected.\n" +
-	`Session Name: **${body.Session.Name}**\n` +
-	`Session Code: **${body.Session.Code}**\n` +
-	`Session Type: **${body.Session.SessionType}**\n` +
-	`Remote Computer Username: **${body.Session.GuestLoggedOnUserName}**\n` +
-	`Remote Computer OS: **${body.Session.GuestOperatingSystemName}\n` +
-	`Company: ${company}\n`+
+	const message = "*New ConnectWise Control Message* - There are no engineers connected.\n\n" +
+	`Session Name: *${body.Session.Name}*\n` +
+	`Session Code: *${body.Session.Code || "No session code"}*\n` +
+	`Session Type: *${body.Session.SessionType}*\n` +
+	`Remote Computer Username: *${body.Session.GuestLoggedOnUserName}*\n` +
+	`Remote Computer OS: *${body.Session.GuestOperatingSystemName}*\n` +
+	`Company: *${body.Session.CustomProperty1 || "Support Session - No Contract."}*\n`+
 	`\nMessage:\n\`${body.Event.Data}\``;
 
 	log.debug(message);
