@@ -44,7 +44,8 @@ app.post("/alert", async (req, res) => {
 
 	log.debug(body);
 
-	const message = "*New ConnectWise Control Message* - There are no engineers connected.\n\n" +
+	const message = "*New ConnectWise Control Message* - There are no engineers connected.\n" +
+	"Please react with ✅ when this issue has been dealt with.\n\n" +
 	`Session Name: *${body.Session.Name}*\n` +
 	`Session Code: *${body.Session.Code || "No session code"}*\n` +
 	`Session Type: *${body.Session.SessionType}*\n` +
