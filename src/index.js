@@ -42,6 +42,26 @@ app.post("/alert", async (req, res) => {
 	const body = req.body;
 	log.info(`successful request, forwarding to slack - ${body.Session.Name} - ${body.Event.Data}`);
 
+	log.debug(body);
+
+	let company;
+	if (body.Session.CustomProperty1 == '') {
+		company = "No company specified, possibly support session.";
+	} else {
+		company = body.Session.CustomProperty1;
+	}
+
+	const message = "**New ConnectWise Control Message** - There are no engineers connected.\n" +
+	`Session Name: **${body.Session.Name}**\n` +
+	`Session Code: **${body.Session.Code}**\n` +
+	`Session Type: **${body.Session.SessionType}**\n` +
+	`Remote Computer Username: **${body.Session.GuestLoggedOnUserName}**\n` +
+	`Remote Computer OS: **${body.Session.GuestOperatingSystemName}\n` +
+	`Company: ${company}\n`+
+	`\nMessage:\n\`${body.Event.Data}\``;
+
+	log.debug(message);
+
 	await axios.post(SLACK_WEBHOOK, {
 		"text": `New message on session \`${body.Session.Name}\` - no engineers are currently connected to this guest. 
 		\nMessage:\n\`${body.Event.Data}\``
