@@ -63,8 +63,7 @@ app.post("/alert", async (req, res) => {
 	log.debug(message);
 
 	await axios.post(SLACK_WEBHOOK, {
-		"text": `New message on session \`${body.Session.Name}\` - no engineers are currently connected to this guest. 
-		\nMessage:\n\`${body.Event.Data}\``
+		"text":  message
 	}).catch(err => {
 		log.error(`request failed, error: ${err}`);
 	})
