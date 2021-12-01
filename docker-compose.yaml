@@ -9,6 +9,8 @@ services:
       - LOG_LEVEL=info
       - LISTEN_PORT=3000
       - SLACK_WEBHOOK=<webhook_url>
+      - INHIBIT_REPEATS=true
+      - INHIBIT_TIME=30
 
     ports:
       - 3000:3000
