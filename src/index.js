@@ -2,7 +2,7 @@
 
 const LISTEN_PORT = process.env.LISTEN_PORT || 3000
 const SLACK_WEBHOOK = process.env.SLACK_WEBHOOK || "<webhook url>"
-const INHIBIT_REPEATS = (process.env.ENABLE_INHIBIT == "true" ? true : false) || true
+const INHIBIT_REPEATS = (process.env.ENABLE_INHIBIT === "true") || true
 const INHIBIT_TIME = 1000 * 60 * (process.env.INHIBIT_TIME || 30)
 
 // Logging
@@ -37,7 +37,7 @@ const is_inhibited = (company, session_name) => {
 	// Both the company name & session_name must match.
 	
 	for (const inhibit of inhibits) {
-		if (inhibit.company == company && inhibit.session_name == session_name) {
+		if (inhibit.company === company && inhibit.session_name === session_name) {
 			log.debug("inhibit exists for company: " + company + " session: " + session_name);
 			
 			// Check date on this inhibit
@@ -113,7 +113,7 @@ app.post("/alert", async (req, res) => {
 	// Respond to webhook.
 	res.sendStatus(200);
 
-	if (process.env.DISABLE_HOOK == "true") return log.warn("hook disabled with DISABLE_HOOK environment variable, dropping.");
+	if (process.env.DISABLE_HOOK === "true") return log.warn("hook disabled with DISABLE_HOOK environment variable, dropping.");
 
 	await axios.post(SLACK_WEBHOOK, {
 		"text":  message
@@ -124,7 +124,7 @@ app.post("/alert", async (req, res) => {
 
 // Entrypoint
 const main = async () => {
-	if (SLACK_WEBHOOK == "<webhook url>") {
+	if (SLACK_WEBHOOK === "<webhook url>") {
 		return log.fatal("Missing Slack webhook URL, please configure properly!");
 	}
 
