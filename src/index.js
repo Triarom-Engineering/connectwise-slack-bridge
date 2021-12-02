@@ -55,6 +55,10 @@ const is_inhibited = (company, session_name) => {
 
 			// Inhibit is still in force
 			log.debug("inhibit has triggered! The next message will drop.");
+
+			// Renew inhibit release time
+			inhibits[inhibits.indexOf(inhibit)].time = Date.now();
+			log.debug("updated inhibit set time.")
 			return true;
 		}
 	}
